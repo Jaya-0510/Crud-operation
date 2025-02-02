@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pie Chart with Center Value</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fdf6d8; /* Light yellow */
+            text-align: center;
+        }
+        .chart-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: #f9edc7; /* Light yellow */
+            padding: 20px;
+            border-radius: 15px;
+            width: 80%;
+            margin: auto;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .chart-box {
+            position: relative;
+            width: 150px;
+            height: 150px;
+        }
+        canvas {
+            display: block;
+        }
+        .chart-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 16px;
+            font-weight: bold;
+            color: black;
+            background: white;
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        h3 {
+            margin-top: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h2 style="text-align: left; margin-left: 10%; font-weight: bold;">Pie Chart</h2>
+
+    <div class="chart-container">
+        <!-- Total Order Chart -->
+        <div>
+            <div class="chart-box">
+                <canvas id="chart-total-order"></canvas>
+                <div class="chart-label" id="label-total-order">81%</div>
+            </div>
+            <h3>Total Order</h3>
+        </div>
+
+        <!-- Customer Growth Chart -->
+        <div>
+            <div class="chart-box">
+                <canvas id="chart-customer-growth"></canvas>
+                <div class="chart-label" id="label-customer-growth">22%</div>
+            </div>
+            <h3>Customer Growth</h3>
+        </div>
+
+        <!-- Total Revenue Chart -->
+        <div>
+            <div class="chart-box">
+                <canvas id="chart-total-revenue"></canvas>
+                <div class="chart-label" id="label-total-revenue">62%</div>
+            </div>
+            <h3>Total Revenue</h3>
+        </div>
+    </div>
+    
+    
+    <script>
+        function createDoughnutChart(canvasId, percentage, colors) {
+            new Chart(document.getElementById(canvasId), {
+                type: "doughnut",
+                data: {
+                   
+                    datasets: [{
+                        data: [percentage, 100 - percentage],
+                        backgroundColor: colors,
+                        borderColor: "transparent"
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: "50%", // Creates the hollow center
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        // Create charts
+        createDoughnutChart("chart-total-order", 81, ["black", "#fddcb5"]);
+        createDoughnutChart("chart-customer-growth", 22, ["#1a2a4f", "#dbeec4"]);
+        createDoughnutChart("chart-total-revenue", 62, ["#ffc107", "#e6e6e6"]);
+
+    </script>
+
+</body>
+</html>
